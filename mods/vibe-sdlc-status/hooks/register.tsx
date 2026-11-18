@@ -1,5 +1,5 @@
 import { atom, read, update } from 'claude-code'
-import type { Engine, Register } from 'claude-code'
+import type { EngineInterface, Register } from 'claude-code'
 
 import type { SdlcState } from '../types'
 
@@ -47,7 +47,7 @@ const parse = (text: string): SdlcState => ({
   waiting: countItems(text, 'waiting for user'),
 })
 
-async function refresh($: Engine): Promise<SdlcState | null> {
+async function refresh($: EngineInterface): Promise<SdlcState | null> {
   const root = await $.session.root()
   const path = `${root}/${STATE_FILE}`
   const found = (await $.fs.exists(path))

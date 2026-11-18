@@ -9,6 +9,7 @@
 - taste-skill (design-taste-frontend) promoted to recommended for marketing sites; hallmark for apps; one aesthetic skill per project.
 - New optional mod `vibe-sdlc-status` (band + `/sdlc-status`, read-only, tested).
 - opsec: how to vet Claude Code mods. Phase 10: human-approved learning loop (idea from Hermes Agent). THIRD-PARTY: mods + Hermes Agent decisions.
+- Mod type-checked with tsc (fixed `EngineInterface` import and `Shaped<>` state contract); tier S reports now state the verification level.
 - README: cheat sheet of example prompts. Project instructions: breach, mobile/API/payment rules.
 
 ## 0.1.0 — 2026-11-18

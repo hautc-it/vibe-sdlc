@@ -11,6 +11,6 @@ export type SdlcState = {
 
 declare module 'claude-code' {
   interface PluginState {
-    'vibe-sdlc-status': { state: SdlcState | null; isHidden: boolean }
+    'vibe-sdlc-status': { state: Shaped<SdlcState | null>; isHidden: boolean }
   }
 }

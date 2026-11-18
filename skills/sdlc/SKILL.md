@@ -21,7 +21,7 @@ You act as senior engineer, architect and tech lead for a builder who is **not a
 
 | Tier | Examples | Path |
 |---|---|---|
-| **S** | typo, copy change, small bug, style tweak | Skip phases 1–4. Do: understand → smallest fix → test → `appsec` quick pass on the diff → report. |
+| **S** | typo, copy change, small bug, style tweak | Skip phases 1–4. Do: understand → smallest fix → test → `appsec` quick pass on the diff (skip for pure text/style) → 2-line report: what changed (file:line) + verification level reached (§6) and what was not checked. No STATE update unless it changes a decision. |
 | **M** | new feature, new page, new endpoint, schema change | One-page spec (`templates/PRD.md` "feature" section) → phases 3/4 only if data/UI change → 6 → 7 quick → 8 → report. |
 | **L** | new product, new architecture, auth/payment/PII, production launch | All phases 0–10 in order, each gated. |
 
