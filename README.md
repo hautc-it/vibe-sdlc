@@ -44,7 +44,7 @@ Thiếu skill nào thì plugin vẫn chạy bằng hướng dẫn dự phòng c�
 
 Trong Claude Code:
 ```
-/plugin marketplace add ~/HauTC/vibe-sdlc
+/plugin marketplace add hautc-it/vibe-sdlc
 /plugin install vibe-sdlc@vibe-sdlc
 ```
 Khuyến nghị cài thêm (tự gõ, sau khi đọc `THIRD-PARTY.md`):
@@ -87,7 +87,7 @@ Công cụ dòng lệnh (tùy chọn): `brew install gitleaks pre-commit osv-sca
 
 ## Cập nhật plugin
 
-Sửa file trong repo này → commit → trong Claude Code chạy `/plugin marketplace update vibe-sdlc` rồi cài lại. Muốn chia sẻ: đẩy repo lên GitHub (private/public tùy bạn), người khác dùng `/plugin marketplace add <owner>/vibe-sdlc`.
+Trong Claude Code chạy `/plugin marketplace update vibe-sdlc` để lấy bản mới. Phát triển trên máy: clone repo rồi `/plugin marketplace add ./vibe-sdlc`.
 
 ## Giấy phép
 MIT. Các dự án bên thứ ba giữ giấy phép riêng (xem `THIRD-PARTY.md`); plugin này không chứa code của họ.
