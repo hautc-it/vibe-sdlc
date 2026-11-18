@@ -1,53 +1,61 @@
 # vibe-sdlc
 
-Quy trình phát triển phần mềm 10 bước cho người **không phải lập trình viên chuyên nghiệp** làm việc với Claude Code: hiểu đúng → thiết kế đúng → làm từng phần → kiểm tra → triển khai → bảo trì. Đặt **bảo mật lên trước** (AppSec + OpSec) ở mọi bước, báo cáo bằng tiếng Việt dễ hiểu, và tận dụng các skill open source tốt nhất hiện nay thay vì viết lại.
+**English** · [Tiếng Việt](README.vi.md)
 
-## Có gì trong plugin
+A security-first, 10-phase software delivery workflow for **builders who are not professional developers** working with Claude Code: understand → design → build in small pieces → verify → secure → ship → maintain. Security (AppSec + OpSec) is built into every phase, reports to the user are in plain Vietnamese, and the deep work is routed to the best open-source skills available instead of rewriting them.
 
-| Skill | Gọi bằng | Dùng khi |
+## What's inside
+
+| Skill | Invoke | Use it for |
 |---|---|---|
-| `sdlc` | `/vibe-sdlc:sdlc` hoặc nói "tôi muốn xây dựng…" | Điều phối 10 bước, cổng chuyển bước, file STATE, mẫu báo cáo |
-| `appsec` | `/vibe-sdlc:appsec` | Review bảo mật mỗi tính năng (5 phút) hoặc checklist đầy đủ trước khi ra mắt |
-| `opsec` | `/vibe-sdlc:opsec` | Key/secret, 2FA, backup, log, bảo vệ máy + Claude Code, **vet plugin/skill/MCP trước khi cài** |
-| `ui-ux` | `/vibe-sdlc:ui-ux` | Thiết kế màn hình, WCAG 2.2 AA, 5 trạng thái dữ liệu, chống "giao diện kiểu AI" |
-| `token-economy` | `/vibe-sdlc:token-economy` | Tiết kiệm token/chi phí mà không giảm chất lượng |
+| `sdlc` | `/vibe-sdlc:sdlc` or just say "I want to build…" | Orchestrates the 10 phases, phase gates, the STATE file and phase reports |
+| `appsec` | `/vibe-sdlc:appsec` | 5-minute security pass per feature, or the full pre-launch checklist (OWASP Top 10 2025, ASVS L1, LLM Top 10, API Top 10, MASVS, Supabase RLS) |
+| `opsec` | `/vibe-sdlc:opsec` | Secrets, 2FA, backups, logging, hardening Claude Code itself, **vetting plugins/skills/MCP/mods before installing** |
+| `ui-ux` | `/vibe-sdlc:ui-ux` | Screens and flows, WCAG 2.2 AA, the five data states, Core Web Vitals, avoiding "AI-generated" looks |
+| `token-economy` | `/vibe-sdlc:token-economy` | Cutting token use and cost without lowering quality |
 
-Thêm: `kit/` (file mẫu cho dự án mới: `.gitignore`, `.env.example`, chặn Claude đọc `.env`, gitleaks, CI bảo mật ghim SHA, Dependabot, SECURITY.md), `THIRD-PARTY.md` (danh sách open source đã vet), `PROJECT-INSTRUCTIONS.vi.md` (bản dán vào Claude.ai Projects).
+Also included:
+- `kit/` — starter files for new projects: `.gitignore`, `.env.example`, Claude Code settings that block reading `.env` and enable the sandbox, gitleaks pre-commit, SHA-pinned security CI (gitleaks + osv-scanner + semgrep), Dependabot, `SECURITY.md`.
+- `mods/vibe-sdlc-status` — optional read-only Claude Code mod: a band above the prompt with the current phase/tier/status, and `/sdlc-status` (no Claude turn, no tokens).
+- `THIRD-PARTY.md` — vetted open-source picks with commit SHAs, and what was rejected and why.
+- `PROJECT-INSTRUCTIONS.vi.md` — a Vietnamese version to paste into Claude.ai Project instructions.
 
-## 10 bước (+ bước 0)
+## The phases
 
 ```
-0 Hiện trạng → 1 Yêu cầu → 2 Kiến trúc → 3 Database → 4 UI/UX → 5 Khung dự án
-→ 6 Lập trình → 7 Bảo mật → 8 Kiểm thử → 9 Triển khai → 10 Bảo trì
+0 Intake → 1 Requirements → 2 Architecture → 3 Database → 4 UI/UX → 5 Setup
+→ 6 Build → 7 Security → 8 Testing → 9 Deploy → 10 Maintain
 ```
 
-- **Mức rủi ro:** S (sửa nhỏ — đi nhanh), M (tính năng — spec 1 trang), L (sản phẩm mới / auth / thanh toán / dữ liệu cá nhân — đủ 10 bước).
-- **Mức tự chủ:** `ask` (hỏi mọi quyết định) hoặc `delegate` (Claude tự quyết chi tiết nhỏ, ghi lại).
-- **Luôn hỏi trước:** xóa dữ liệu, DB production, deploy, push, dịch vụ tốn tiền, cài code bên thứ ba, tạo/xoay khóa bí mật.
-- **6 mức xác minh:** đã viết code · đã kiểm cú pháp · đã chạy · test đạt · đã deploy · bạn nghiệm thu. Claude phải nói rõ đạt mức nào.
-- **STATE.md** (`docs/sdlc/STATE.md` trong dự án): phiên mới đọc file này là biết đang ở đâu — không phải kể lại.
+- **Risk tiers:** S (small fix: fast path), M (feature: one-page spec), L (new product, auth, payments, personal data: all phases).
+- **Autonomy:** `ask` (confirm every decision) or `delegate` (Claude decides small product details and logs them).
+- **Always-ask gates:** deleting data, production DB or deploy, push/publish, paid services, installing third-party code, creating or rotating secrets.
+- **Six verification levels:** code written · syntax checked · ran it · tests passed · deployed · accepted by the user. Claude must state which level it reached.
+- **`docs/sdlc/STATE.md`** in each project lets a new session pick up where the last one stopped without re-explaining.
+- **Legal (Vietnam):** Personal Data Protection Law 91/2025/QH15 and Decree 356/2025/NĐ-CP (in force 1 Jan 2026, replacing Decree 13/2023); GDPR/CCPA prompts when users are abroad. Not legal advice.
 
-## Phân vai với open source
+## Routing to open-source skills
 
-| Bước | Skill chuyên sâu (nếu đã cài) |
+| Phase | Specialist skill (if installed) |
 |---|---|
-| 1 Yêu cầu | superpowers `brainstorming`, mattpocock `grilling` |
-| 2 Kiến trúc | mattpocock `domain-modeling`, `codebase-design`; Cloudflare `security-audit` (threat model) |
-| 4 UI/UX | App/dashboard: `hallmark` · Web giới thiệu/landing page: `taste-skill` (chọn 1 cho mỗi dự án) · chuyển động: emil skills |
-| 6 Lập trình | superpowers: worktree → writing-plans → TDD → subagent-driven-development → code review |
-| 7 Bảo mật | `/security-review` có sẵn; Cloudflare `security-audit` (audit sâu) |
-| 8 Kiểm thử | Anthropic `webapp-testing` (Playwright), hallmark audit |
+| 1 Requirements | superpowers `brainstorming`, mattpocock `grilling` |
+| 2 Architecture | mattpocock `domain-modeling`, `codebase-design`; Cloudflare `security-audit` (threat model) |
+| 4 UI/UX | Apps/dashboards: `hallmark` · Marketing sites/landing pages: `taste-skill` (one per project) · motion: Emil Kowalski's skills |
+| 6 Build | superpowers: worktree → writing-plans → TDD → subagent-driven-development → code review |
+| 7 Security | built-in `/security-review`; Cloudflare `security-audit` (deep audit) |
+| 8 Testing | Anthropic `webapp-testing` (Playwright), hallmark audit |
 
-Thiếu skill nào thì plugin vẫn chạy bằng hướng dẫn dự phòng của chính nó. Chi tiết: `skills/sdlc/routing.md`.
+If a skill is missing, the plugin falls back to its own instructions. Details: `skills/sdlc/routing.md`.
 
-## Cài đặt
+## Install
 
-Trong Claude Code:
+In Claude Code:
 ```
 /plugin marketplace add hautc-it/vibe-sdlc
 /plugin install vibe-sdlc@vibe-sdlc
+/plugin install vibe-sdlc-status@vibe-sdlc      # optional status mod
 ```
-Khuyến nghị cài thêm (tự gõ, sau khi đọc `THIRD-PARTY.md`):
+Recommended companions (read `THIRD-PARTY.md` first — installing runs third-party code):
 ```
 /plugin install superpowers@claude-plugins-official
 /plugin marketplace add Nutlope/hallmark
@@ -58,36 +66,35 @@ Khuyến nghị cài thêm (tự gõ, sau khi đọc `THIRD-PARTY.md`):
 /plugin install example-skills@anthropic-agent-skills
 npx skills add https://github.com/cloudflare/security-audit-skill --skill security-audit --global
 ```
-Mod hiển thị trạng thái (tùy chọn, chỉ đọc, không tốn token): `/plugin install vibe-sdlc-status@vibe-sdlc` → dòng mờ trên ô nhập hiện "phase · tier · trạng thái", gõ `/sdlc-status` xem tóm tắt ngay.
+Optional CLI tools: `brew install gitleaks pre-commit osv-scanner semgrep`.
 
-Dùng với agent khác (Hermes Agent, Codex, Cursor…): 5 skill trong `skills/` là file `SKILL.md` chuẩn, chép sang thư mục skills của agent đó là dùng được (chưa thử thực tế).
+Other agents (Hermes Agent, Codex, Cursor…): the five skills in `skills/` are standard `SKILL.md` files and should work when copied into that agent's skills folder (not tested).
 
-Công cụ dòng lệnh (tùy chọn): `brew install gitleaks pre-commit osv-scanner semgrep`.
+## Getting started
 
-## Bắt đầu
+- **New project:** open an empty folder and say *"I want to build …"* (or run `/vibe-sdlc:sdlc`). Claude starts at phase 0–1, asks short groups of questions, creates `docs/sdlc/STATE.md`, and writes **no code yet**.
+- **Existing project:** `/vibe-sdlc:sdlc` — Claude maps what exists to the phases and does not redo finished work.
+- **Quick fix:** just ask; Claude classifies it as tier S and takes the short path.
 
-- Dự án mới: mở thư mục trống, gõ *"Tôi muốn xây dựng …"* (hoặc `/vibe-sdlc:sdlc`). Claude bắt đầu ở bước 0–1, hỏi từng nhóm câu ngắn, tạo `docs/sdlc/STATE.md`, **chưa viết code**.
-- Dự án có sẵn: `/vibe-sdlc:sdlc` → Claude rà hiện trạng, đối chiếu với 10 bước, không làm lại phần đã xong.
-- Sửa nhanh một lỗi: cứ nói bình thường; Claude xếp mức S và đi đường ngắn.
+## Example prompts
 
-## Câu nói mẫu (copy dùng ngay)
-
-| Bạn muốn | Nói với Claude |
+| You want to | Say to Claude |
 |---|---|
-| Bắt đầu sản phẩm mới | "Tôi muốn xây dựng app … cho … Bắt đầu theo vibe-sdlc." |
-| Tiếp tục hôm qua | "Đọc STATE và làm tiếp." |
-| Thêm tính năng | "Thêm tính năng … (mức M)." |
-| Sửa lỗi nhỏ | "Nút … bị lệch trên điện thoại, sửa giúp." (tự xếp mức S) |
-| Cho Claude tự quyết chi tiết | "Chuyển autonomy sang delegate." |
-| Kiểm tra bảo mật | "/vibe-sdlc:appsec cho tính năng vừa làm" · trước khi ra mắt: "chạy checklist bảo mật đầy đủ" |
-| Định cài plugin/thư viện lạ | "/vibe-sdlc:opsec vet giúp repo … trước khi cài" |
-| Giao diện nhìn "kiểu AI" | "/vibe-sdlc:ui-ux critique trang …" |
-| Context dài, tốn token | "/vibe-sdlc:token-economy" rồi `/usage`, `/context` |
-| Xem đang ở bước nào | "Báo cáo giai đoạn hiện tại theo mẫu." |
+| Start a new product | "I want to build an app for … Follow vibe-sdlc." |
+| Continue yesterday's work | "Read STATE and continue." |
+| Add a feature | "Add feature … (tier M)." |
+| Fix something small | "The … button is misaligned on mobile, fix it." |
+| Let Claude decide details | "Switch autonomy to delegate." |
+| Security check | "/vibe-sdlc:appsec on the feature we just built" · before launch: "run the full security checklist" |
+| Vet a new plugin/library | "/vibe-sdlc:opsec vet repo … before I install it" |
+| UI looks generic | "/vibe-sdlc:ui-ux critique page …" |
+| Context is long / costly | "/vibe-sdlc:token-economy", then `/usage`, `/context` |
+| Where are we? | "Give me the phase report." |
 
-## Cập nhật plugin
+## Updating
 
-Trong Claude Code chạy `/plugin marketplace update vibe-sdlc` để lấy bản mới. Phát triển trên máy: clone repo rồi `/plugin marketplace add ./vibe-sdlc`.
+Run `/plugin marketplace update vibe-sdlc` in Claude Code. For local development: clone the repo, then `/plugin marketplace add ./vibe-sdlc`.
 
-## Giấy phép
-MIT. Các dự án bên thứ ba giữ giấy phép riêng (xem `THIRD-PARTY.md`); plugin này không chứa code của họ.
+## License
+
+MIT. Third-party projects keep their own licenses (see `THIRD-PARTY.md`); this plugin contains none of their code.
