@@ -1,21 +1,23 @@
-# kit — file mẫu cho dự án mới
+# kit — starter files for a new project
 
-Copy những gì phù hợp vào dự án (bước 5). Không có gì ở đây tự cài.
+**English** · [Tiếng Việt](README.vi.md)
 
-| File | Tác dụng |
+Copy what fits into your project (phase 5). Nothing here installs itself.
+
+| File | Purpose |
 |---|---|
-| `.gitignore` | Chặn commit file bí mật, build, node_modules |
-| `.env.example` | Chỉ tên biến môi trường, không giá trị |
-| `.claude/settings.json` | Chặn Claude đọc `.env`/khóa, chặn lệnh nguy hiểm; hỏi trước khi push/deploy/cài gói |
-| `.pre-commit-config.yaml` | gitleaks chặn commit có secret (`pre-commit install`) |
-| `.github/workflows/security.yml` | CI: gitleaks + osv-scanner + semgrep, action ghim SHA |
-| `.github/dependabot.yml` | Tự đề xuất cập nhật thư viện + action hằng tuần |
-| `SECURITY.md` | Cách người khác báo lỗi bảo mật cho bạn |
+| `.gitignore` | Keeps secrets, builds and `node_modules` out of commits |
+| `.env.example` | Environment variable names only, no values |
+| `.claude/settings.json` | Stops Claude reading `.env`/keys, blocks dangerous commands, asks before push/deploy/package installs, turns on the sandbox |
+| `.pre-commit-config.yaml` | gitleaks blocks commits that contain secrets (`pre-commit install`) |
+| `.github/workflows/security.yml` | CI: gitleaks + osv-scanner + semgrep, actions pinned by commit SHA |
+| `.github/dependabot.yml` | Weekly update PRs for dependencies and actions |
+| `SECURITY.md` | How others can report a vulnerability to you |
 
-Sửa `.env.example`, `dependabot.yml` (ecosystem) và `ask` trong `settings.json` cho đúng stack của dự án.
+Adjust `.env.example`, the `dependabot.yml` ecosystem and the `ask` list in `settings.json` to your stack.
 
-**Về `.claude/settings.json`:**
-- Đã thử thật (2026-11-18): Claude đọc được `.env.example`, bị chặn đọc `.env`.
-- Luật `deny` chỉ là rào chắn mềm: nó không chặn được một script Python/Node tự mở file hay `grep -r`. Rào chắn thật là **sandbox** (bật sẵn trong file này): lệnh shell chỉ ghi trong thư mục dự án, chỉ ra mạng tới các domain trong `allowedDomains`, không đọc được `~/.ssh`, `~/.aws`.
-- Nếu lệnh nào cần mạng khác (ví dụ API của Supabase/Vercel CLI), thêm domain vào `sandbox.network.allowedDomains` — Claude Code sẽ hỏi khi bị chặn.
-- macOS chạy sẵn; Linux/WSL2 cần cài `bubblewrap` và `socat`.
+**About `.claude/settings.json`:**
+- Tested for real (2026-11-18): Claude can read `.env.example` and is blocked from reading `.env`.
+- `deny` rules are a guard rail, not a boundary: they do not stop a Python/Node script that opens the file itself, or `grep -r`. The real boundary is the **sandbox** (enabled in this file): shell commands can only write inside the project, can only reach domains in `allowedDomains`, and cannot read `~/.ssh` or `~/.aws`.
+- If a command needs another domain (for example the Supabase or Vercel CLI API), add it to `sandbox.network.allowedDomains` — Claude Code asks when something is blocked.
+- Works out of the box on macOS; Linux/WSL2 need `bubblewrap` and `socat`.
