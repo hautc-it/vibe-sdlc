@@ -71,8 +71,17 @@ Copy the table into `docs/sdlc/security-checklist.md` and fill status + evidence
 | LLM09 | Misinformation | cite sources; show uncertainty; human review for high-stakes output |
 | LLM10 | Unbounded consumption | per-user rate limits, max tokens, budget alerts, timeouts |
 
+### APIs — OWASP API Security Top 10 (2023) extras
+Object-level authz on every ID in path/body (BOLA) · property-level: clients cannot set `role`, `owner_id`, `price` (mass assignment — allowlist writable fields) · pagination + max page size · business-flow abuse limits (sign-ups, coupons, OTP sends) · inventory of all endpoints incl. old versions and debug routes · validate third-party API responses like user input.
+
+### Mobile apps — OWASP MASVS (if building iOS/Android/React Native/Flutter)
+No secrets in the app bundle (it can be decompiled — anything shipped is public) · tokens in Keychain/Keystore, not plain storage · TLS only, no cleartext exceptions · deep links validated (no auth bypass via URL) · WebViews: no JS bridges to untrusted pages · server re-checks everything the app checks · minimal permissions · logs stripped of PII in release builds.
+
+### Payments & webhooks
+Hosted checkout (Stripe Checkout / PayOS / VNPay page) so card data never touches your server · amounts computed server-side from product IDs, never trusted from client · webhooks: verify signature, check timestamp, idempotency key, process once · reconcile order state from the provider, not from the redirect URL.
+
 ### Privacy (VN + international — cần kiểm tra bản hiện hành)
-Privacy policy matches real collection · consent recorded where required · user can export/delete data · cross-border transfer documented (Nghị định 13/2023, Luật BVDLCN 2025; GDPR if EU users).
+Privacy policy matches real collection · consent recorded where required · user can export/delete data · cross-border transfer documented (VN: Luật 91/2025/QH15 + Nghị định 356/2025/NĐ-CP — Nghị định 13/2023 no longer applies from 01/01/2026; GDPR if EU users).
 
 ## Mode C — Deep audit (escalation)
 

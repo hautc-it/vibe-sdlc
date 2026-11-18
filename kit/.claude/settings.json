@@ -1,30 +1,48 @@
 {
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
   "permissions": {
     "deny": [
-      "Read(./.env)",
-      "Read(./.env.*)",
-      "Read(**/.env)",
-      "Read(**/.env.*)",
-      "Read(**/*.pem)",
-      "Read(**/*.key)",
-      "Read(**/credentials*.json)",
-      "Read(**/service-account*.json)",
-      "Bash(rm -rf:*)",
-      "Bash(git push --force:*)",
-      "Bash(git push -f:*)",
-      "Bash(git reset --hard:*)",
-      "Bash(sudo:*)"
+      "Read(.env)",
+      "Read(.env.*)",
+      "Read(!.env.example)",
+      "Read(*.pem)",
+      "Read(*.key)",
+      "Read(*.p12)",
+      "Read(credentials*.json)",
+      "Read(service-account*.json)",
+      "Read(~/.ssh/**)",
+      "Read(~/.aws/**)",
+      "Bash(rm -rf *)",
+      "Bash(git push --force *)",
+      "Bash(git push -f *)",
+      "Bash(git reset --hard *)",
+      "Bash(sudo *)"
     ],
     "ask": [
-      "Bash(git push:*)",
-      "Bash(npm publish:*)",
-      "Bash(supabase db push:*)",
-      "Bash(supabase db reset:*)",
-      "Bash(vercel --prod:*)",
-      "Bash(npm install:*)",
-      "Bash(pnpm add:*)",
-      "Bash(pip install:*)",
-      "Bash(uv add:*)"
+      "Bash(git push *)",
+      "Bash(npm publish *)",
+      "Bash(supabase db push *)",
+      "Bash(supabase db reset *)",
+      "Bash(vercel --prod *)",
+      "Bash(npm install *)",
+      "Bash(pnpm add *)",
+      "Bash(pip install *)",
+      "Bash(uv add *)"
     ]
+  },
+  "sandbox": {
+    "enabled": true,
+    "filesystem": {
+      "denyRead": ["~/.ssh", "~/.aws", "~/.config/gh", "~/.npmrc"]
+    },
+    "network": {
+      "allowedDomains": [
+        "github.com",
+        "*.githubusercontent.com",
+        "registry.npmjs.org",
+        "pypi.org",
+        "files.pythonhosted.org"
+      ]
+    }
   }
 }

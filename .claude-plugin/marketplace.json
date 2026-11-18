@@ -1,12 +1,24 @@
 {
   "name": "vibe-sdlc",
-  "owner": { "name": "HauTC" },
-  "metadata": { "description": "Local marketplace for the vibe-sdlc workflow plugin", "version": "0.1.0" },
+  "owner": {
+    "name": "HauTC"
+  },
+  "metadata": {
+    "description": "Local marketplace for the vibe-sdlc workflow plugin",
+    "version": "0.2.0"
+  },
   "plugins": [
     {
       "name": "vibe-sdlc",
       "source": "./",
       "description": "Security-first 10-phase software delivery workflow with Vietnamese reports",
+      "version": "0.2.0",
+      "license": "MIT"
+    },
+    {
+      "name": "vibe-sdlc-status",
+      "source": "./mods/vibe-sdlc-status",
+      "description": "Optional read-only mod: band above the prompt with the vibe-sdlc phase/tier/status, and /sdlc-status (no Claude turn, no tokens)",
       "version": "0.1.0",
       "license": "MIT"
     }

@@ -9,7 +9,8 @@ Check the session's available-skills list. Use the first available option; if no
 | 2 | Glossary, ADRs | `mattpocock-skills:domain-modeling` | — | `templates/ADR.md` |
 | 2 | Module boundaries, testable seams | `mattpocock-skills:codebase-design` | — | Keep modules by feature; one public entry per module |
 | 2/7 | Threat model, deep security review | `security-audit` (Cloudflare) in **guidance mode** | `vibe-sdlc:appsec` | `templates/threat-model.md` |
-| 4 | Visual direction, anti-"AI-slop" gates | `hallmark` | `design-taste-frontend` / `ui-ux-pro-max` (if project has them) | `vibe-sdlc:ui-ux` |
+| 4 | Visual direction for **apps / dashboards / tools** | `hallmark` | `ui-ux-pro-max` (if project has it) | `vibe-sdlc:ui-ux` |
+| 4 | Visual direction for **marketing / company sites / landing pages** | `design-taste-frontend` (taste-skill) | `hallmark` | `vibe-sdlc:ui-ux` |
 | 4 | Motion | `emil-design-eng` and animation skills (if project has them) | — | `vibe-sdlc:ui-ux` motion rules |
 | 4 | Throwaway UI/state prototype | `mattpocock-skills:prototype` | `example-skills:frontend-design` | Static HTML mock in scratch dir |
 | 6 | Isolated workspace | `superpowers:using-git-worktrees` | — | New branch |
@@ -31,6 +32,7 @@ Check the session's available-skills list. Use the first available option; if no
 
 ## Overlaps — decided once, do not re-debate
 
+- Design taste: use **one** aesthetic skill per project (hallmark *or* taste-skill), recorded in STATE `decisions` — two taste skills pull the design in different directions. `vibe-sdlc:ui-ux` Floor gate applies on top of either.
 - TDD: superpowers first (stricter red-green). Debugging: superpowers first.
 - Clarifying: superpowers brainstorming for new features; mattpocock grilling when the user explicitly wants to be challenged.
 - Code review: superpowers for plan-vs-code; built-in `/code-review` for correctness bugs; `/security-review` for security.

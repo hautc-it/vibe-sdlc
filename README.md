@@ -33,7 +33,7 @@ Thêm: `kit/` (file mẫu cho dự án mới: `.gitignore`, `.env.example`, ch�
 |---|---|
 | 1 Yêu cầu | superpowers `brainstorming`, mattpocock `grilling` |
 | 2 Kiến trúc | mattpocock `domain-modeling`, `codebase-design`; Cloudflare `security-audit` (threat model) |
-| 4 UI/UX | `hallmark`; taste-skill / ui-ux-pro-max / emil (nếu dự án có) |
+| 4 UI/UX | App/dashboard: `hallmark` · Web giới thiệu/landing page: `taste-skill` (chọn 1 cho mỗi dự án) · chuyển động: emil skills |
 | 6 Lập trình | superpowers: worktree → writing-plans → TDD → subagent-driven-development → code review |
 | 7 Bảo mật | `/security-review` có sẵn; Cloudflare `security-audit` (audit sâu) |
 | 8 Kiểm thử | Anthropic `webapp-testing` (Playwright), hallmark audit |
@@ -52,10 +52,16 @@ Khuyến nghị cài thêm (tự gõ, sau khi đọc `THIRD-PARTY.md`):
 /plugin install superpowers@claude-plugins-official
 /plugin marketplace add Nutlope/hallmark
 /plugin install hallmark@hallmark
+/plugin marketplace add Leonxlnx/taste-skill
+/plugin install taste-skill@taste-skill
 /plugin marketplace add anthropics/skills
 /plugin install example-skills@anthropic-agent-skills
 npx skills add https://github.com/cloudflare/security-audit-skill --skill security-audit --global
 ```
+Mod hiển thị trạng thái (tùy chọn, chỉ đọc, không tốn token): `/plugin install vibe-sdlc-status@vibe-sdlc` → dòng mờ trên ô nhập hiện "phase · tier · trạng thái", gõ `/sdlc-status` xem tóm tắt ngay.
+
+Dùng với agent khác (Hermes Agent, Codex, Cursor…): 5 skill trong `skills/` là file `SKILL.md` chuẩn, chép sang thư mục skills của agent đó là dùng được (chưa thử thực tế).
+
 Công cụ dòng lệnh (tùy chọn): `brew install gitleaks pre-commit osv-scanner semgrep`.
 
 ## Bắt đầu
@@ -63,6 +69,21 @@ Công cụ dòng lệnh (tùy chọn): `brew install gitleaks pre-commit osv-sca
 - Dự án mới: mở thư mục trống, gõ *"Tôi muốn xây dựng …"* (hoặc `/vibe-sdlc:sdlc`). Claude bắt đầu ở bước 0–1, hỏi từng nhóm câu ngắn, tạo `docs/sdlc/STATE.md`, **chưa viết code**.
 - Dự án có sẵn: `/vibe-sdlc:sdlc` → Claude rà hiện trạng, đối chiếu với 10 bước, không làm lại phần đã xong.
 - Sửa nhanh một lỗi: cứ nói bình thường; Claude xếp mức S và đi đường ngắn.
+
+## Câu nói mẫu (copy dùng ngay)
+
+| Bạn muốn | Nói với Claude |
+|---|---|
+| Bắt đầu sản phẩm mới | "Tôi muốn xây dựng app … cho … Bắt đầu theo vibe-sdlc." |
+| Tiếp tục hôm qua | "Đọc STATE và làm tiếp." |
+| Thêm tính năng | "Thêm tính năng … (mức M)." |
+| Sửa lỗi nhỏ | "Nút … bị lệch trên điện thoại, sửa giúp." (tự xếp mức S) |
+| Cho Claude tự quyết chi tiết | "Chuyển autonomy sang delegate." |
+| Kiểm tra bảo mật | "/vibe-sdlc:appsec cho tính năng vừa làm" · trước khi ra mắt: "chạy checklist bảo mật đầy đủ" |
+| Định cài plugin/thư viện lạ | "/vibe-sdlc:opsec vet giúp repo … trước khi cài" |
+| Giao diện nhìn "kiểu AI" | "/vibe-sdlc:ui-ux critique trang …" |
+| Context dài, tốn token | "/vibe-sdlc:token-economy" rồi `/usage`, `/context` |
+| Xem đang ở bước nào | "Báo cáo giai đoạn hiện tại theo mẫu." |
 
 ## Cập nhật plugin
 

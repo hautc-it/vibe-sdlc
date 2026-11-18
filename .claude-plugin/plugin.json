@@ -1,6 +1,6 @@
 {
   "name": "vibe-sdlc",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Security-first 10-phase software delivery workflow for non-developer builders: phase gates, project STATE file, Vietnamese reports, and routing to vetted open-source skills (superpowers, cloudflare security-audit, hallmark, mattpocock-skills).",
   "author": { "name": "HauTC" },
   "license": "MIT",

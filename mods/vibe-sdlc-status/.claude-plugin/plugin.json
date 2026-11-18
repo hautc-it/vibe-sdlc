@@ -1,0 +1,7 @@
+{
+  "name": "vibe-sdlc-status",
+  "version": "0.1.0",
+  "description": "Read-only vibe-sdlc status: a band above the prompt with the project's phase/tier/status from docs/sdlc/STATE.md, and /sdlc-status. No network, no model calls, never approves or rewrites tool calls.",
+  "license": "MIT",
+  "types": "./types/index.d.ts"
+}

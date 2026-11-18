@@ -23,7 +23,7 @@
 
 ## 5. Legal & privacy (cần kiểm tra bản hiện hành)
 - Markets/users: VN / EU / US …
-- Applicable: Nghị định 13/2023, Luật BVDLCN 2025 / GDPR / CCPA / PCI (hosted checkout) / other
+- Applicable: Luật BVDLCN 91/2025/QH15 + Nghị định 356/2025/NĐ-CP / GDPR / CCPA / PCI (hosted checkout) / other
 - Consent needed for: …
 - Cross-border transfer: which services, which regions
 

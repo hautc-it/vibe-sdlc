@@ -20,7 +20,7 @@ Problem, users, MVP features (must/should/later), non-goals, acceptance criteria
 
 ## Security & legal (required section of PRD)
 - **Data classification** per data type: Public / Internal / Personal / Sensitive personal / Secret.
-- **Legal scan** (state "cần kiểm tra bản hiện hành", you are not a lawyer): Vietnam — Nghị định 13/2023/NĐ-CP and Luật Bảo vệ dữ liệu cá nhân 2025 (hiệu lực 01/01/2026) for personal data, consent, cross-border transfer; EU users → GDPR; California → CCPA/CPRA; payments → PCI DSS (use a hosted checkout so card data never touches the app); children's data → extra rules.
+- **Legal scan** (state "cần kiểm tra bản hiện hành", you are not a lawyer): Vietnam — Luật Bảo vệ dữ liệu cá nhân số 91/2025/QH15 and Nghị định 356/2025/NĐ-CP (both in force 01/01/2026; the decree replaced Nghị định 13/2023) for personal data, consent, cross-border transfer, impact assessment; EU users → GDPR; California → CCPA/CPRA; payments → PCI DSS (use a hosted checkout so card data never touches the app); children's data → extra rules.
 - Abuse cases: how could a user misuse each feature (spam, scraping, account takeover, cost abuse of AI endpoints)?
 
 ## Exit criteria

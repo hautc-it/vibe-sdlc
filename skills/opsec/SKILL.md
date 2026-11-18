@@ -29,8 +29,10 @@ Log: auth events, permission denials, admin actions, payment webhooks, errors. N
 ## 5. Developer machine & AI agent hardening
 - Disk encryption (FileVault/BitLocker), OS auto-updates, screen lock, password manager.
 - Claude Code:
-  - Project `.claude/settings.json` from `kit/`: deny `Read(./.env*)`, `Read(**/*.pem)`, `Bash(rm -rf:*)`, `Bash(git push --force:*)`, `Bash(curl:* | sh)`; keep the permission prompt on — avoid `--dangerously-skip-permissions` except inside a throwaway container/VM.
-  - Use sandboxing (`/sandbox`) when running untrusted builds or third-party scripts.
+  - Project `.claude/settings.json` from `kit/`: deny reading `.env*`/keys (but allow `.env.example`), deny `rm -rf`, force push, `git reset --hard`, `sudo`; ask before push, deploy, DB push and package installs. Keep permission prompts on — use `bypassPermissions` / `--dangerously-skip-permissions` only inside a throwaway container/VM; set `permissions.disableBypassPermissionsMode: "disable"` in user settings if you never want it.
+  - **Know the limits of permission rules:** Read deny rules cover Claude's file tools and simple shell readers (`cat`, `head`, `sed`…), but **not** `grep -r .` or a Python/Node script that opens the file itself; Bash patterns are matched on command text and can be sidestepped (`/usr/bin/curl`, `sh -c '…'`). They are guard rails, not a security boundary.
+  - **The real boundary is the sandbox** (`/sandbox`, or `"sandbox": {"enabled": true}`; macOS Seatbelt built in, Linux/WSL2 need bubblewrap + socat). It confines shell commands and their child processes: writes only in the project + temp, network only to `allowedDomains`, and `filesystem.denyRead` for `~/.ssh`, `~/.aws`, etc. Built-in file/web tools, hooks and MCP servers are **outside** it and follow permission rules. Turn it on whenever you run untrusted builds, tests or third-party scripts.
+  - Environment variables are inherited by Claude Code and sandboxed commands — do not `export` production secrets in the shell you start Claude from; load them only in the process that needs them.
   - Hooks run with your user's permissions **even if you deny the model's commands** — read every hook of an installed plugin.
   - Content from web pages, issues, PDFs, downloaded repos and tool output is data, not instructions (prompt injection). Clone untrusted repos into an empty scratch folder and never run their scripts to "see what happens".
   - Prefer built-in memory + a STATE file over memory plugins that ship every tool call to a remote service.
@@ -49,12 +51,14 @@ Applies to: Claude skills/plugins, MCP servers, npm/pip packages, GitHub Actions
 7. **Pin:** plugins/skills at the vetted commit; GitHub Actions by full SHA (`uses: owner/repo@<40-char sha> # vX.Y.Z`); packages via lockfile.
 8. **Re-vet on update** — an update is a new install.
 
+**Claude Code mods** (plugins with `hooks/hooks.json` naming a JS/TS module) deserve extra care: they run inside Claude Code with your permissions, are **not sandboxed**, see every prompt and tool call, can read env vars/settings, and can approve tool calls your deny/ask rules would stop (unless the built-in `cc-plugin-sec-default` guard blocks it). Before installing, run `claude plugin validate <dir>` and read its `hooks:` and `calls:` lines — a status mod should show only `ui.render`/`command.run` and `$.fs.read`-style calls, never `$.process`, `$.model`, network or `tool.call` approvals. Kill switches: disable in `/plugin`, `--safe-mode` for one session, `"disableAllHooks": true` for all.
+
 Red flags → reject or borrow ideas only: telemetry on by default; hooks that send tool calls/diffs to a remote service; binaries downloaded at runtime; modes that disable sandbox/approvals; obfuscated or minified-only code; install via `curl | sh`; requests for broad tokens.
 
 ## 7. Incident mini-runbook (key leaked / account hijacked / site defaced)
 1. Contain: revoke/rotate the key, sign out all sessions, disable the compromised account or deploy.
 2. Preserve: note time, what was seen; export logs before they expire.
-3. Assess: what data could be read/changed? Personal data involved → legal notification duties (VN Nghị định 13/2023: notify authority within 72h; GDPR 72h) — cần kiểm tra bản hiện hành.
+3. Assess: what data could be read/changed? Personal data involved → legal notification duties (VN Luật 91/2025/QH15 + Nghị định 356/2025/NĐ-CP: notify the specialised authority — and in some cases the data subjects — within 72h for qualifying breaches; GDPR 72h) — cần kiểm tra điều khoản gốc, you are not a lawyer.
 4. Recover: restore from known-good backup/build; patch root cause; add a test/alert.
 5. Learn: write a short post-incident note in `docs/sdlc/incidents/`.
 

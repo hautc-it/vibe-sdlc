@@ -5,7 +5,7 @@ description: Modern, accessible UI/UX gate for web and mobile — screen/flow pl
 
 # UI/UX gate
 
-If `hallmark` is installed, use it for visual direction and its own gates; if the project has `design-taste-frontend`, `ui-ux-pro-max` or `emil-design-eng`, use those for taste and motion. **Project constraints always win** over any design skill (e.g. no CDN fonts, no UI library, strict CSP). This skill is the fallback and the acceptance gate.
+Use one aesthetic skill per project: `hallmark` for apps/dashboards, `design-taste-frontend` (taste-skill) for marketing/company sites; `emil-design-eng` for motion. **Project constraints always win** over any design skill (e.g. no CDN fonts, no UI library, strict CSP). This skill is the fallback and the acceptance gate.
 
 ## 1. Plan before pixels
 - One sentence per screen: *what must the visitor do here?* Everything on the screen serves that task, in priority order.
