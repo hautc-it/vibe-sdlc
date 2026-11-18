@@ -1,0 +1,14 @@
+{
+  "name": "vibe-sdlc",
+  "owner": { "name": "HauTC" },
+  "metadata": { "description": "Local marketplace for the vibe-sdlc workflow plugin", "version": "0.1.0" },
+  "plugins": [
+    {
+      "name": "vibe-sdlc",
+      "source": "./",
+      "description": "Security-first 10-phase software delivery workflow with Vietnamese reports",
+      "version": "0.1.0",
+      "license": "MIT"
+    }
+  ]
+}

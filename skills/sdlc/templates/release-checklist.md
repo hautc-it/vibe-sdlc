@@ -1,0 +1,12 @@
+# Release checklist — <version/date>
+- [ ] Test report GO, no open Critical/High security findings
+- [ ] Backup taken right before release; restore procedure written
+- [ ] Env vars set in host by the user (names checked against .env.example)
+- [ ] Migrations reviewed; run order + rollback written
+- [ ] HTTPS + HSTS; www/apex OK
+- [ ] Security headers present (`curl -sI https://<domain>`)
+- [ ] Rate limits + paid-API budgets/caps on
+- [ ] Error monitoring + uptime alert reach the user
+- [ ] Rollback tested or documented (< 10 min)
+- [ ] Smoke test on prod: login, main flow, a write, error page
+- [ ] User confirmed release (gate) — date:

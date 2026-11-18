@@ -1,0 +1,26 @@
+# <project> — notes for Claude
+<!-- Keep under ~150 lines. Facts the code cannot tell you. Details go in docs/, linked. -->
+
+## Workflow
+- This project follows vibe-sdlc. Read `docs/sdlc/STATE.md` first each session.
+- Reports to the owner in simple Vietnamese. Code/commits in English.
+- Autonomy: see STATE. Gates (always ask): delete data, prod DB/deploy, push, paid services, new third-party code, secrets.
+
+## Commands
+- install: 
+- dev: 
+- check (lint+types+tests): 
+- e2e: 
+
+## Structure
+- src/<feature>/ … one folder per feature
+- db/migrations/ … never edit applied migrations
+
+## Conventions
+- Naming: 
+- Commits: Conventional Commits, no AI attribution
+- Validation: server-side schema on every input; authz on every endpoint
+
+## Do not
+- Read `.env*` or print secrets
+- Add UI libraries / CDNs / trackers without asking
